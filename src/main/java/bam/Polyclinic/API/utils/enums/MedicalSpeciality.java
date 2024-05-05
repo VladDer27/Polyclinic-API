@@ -1,0 +1,19 @@
+package bam.Polyclinic.API.utils.enums;
+
+public enum MedicalSpeciality {
+    GASTROENTEROLOGY,
+    HEMATOLOGY,
+    GYNECOLOGY,
+    DERMATOLOGY,
+    CARDIOLOGY,
+    NEUROLOGY,
+    NEPHROLOGY,
+    ONCOLOGY,
+    ORTHOPEDICS,
+    OTORHINOLARYNGOLOGY,
+    OPHTHALMOLOGY,
+    PEDIATRICS,
+    PSYCHIATRY,
+    UROLOGY,
+    ENDOCRINOLOGY
+}
