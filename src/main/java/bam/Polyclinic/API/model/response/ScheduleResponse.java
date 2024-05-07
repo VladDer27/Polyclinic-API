@@ -11,7 +11,7 @@ import java.util.Map;
 @Data
 public class ScheduleResponse {
     private List<LocalDate> dates;
-    private List<DoctorResponse> doctors;
+    private List<DoctorResponseWithSchedule> doctors;
     private Map<Long, Map<LocalDate, DayAvailability>> availabilityMap;
     private MedicalSpeciality[] specialities;
     private LocalDate tomorrow;

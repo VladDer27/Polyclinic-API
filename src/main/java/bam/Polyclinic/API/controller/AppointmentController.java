@@ -43,8 +43,12 @@ public class AppointmentController {
         ScheduleResponse response = new ScheduleResponse();
         response.setDates(dates);
         response.setDoctors(doctors.stream().map(doctor -> {
-                    DoctorResponse doctorResponse = modelMapper.map(doctor, DoctorResponse.class);
+                    DoctorResponseWithSchedule doctorResponse = modelMapper.map(doctor, DoctorResponseWithSchedule.class);
                     UserResponse userResponse = modelMapper.map(doctor.getUser(), UserResponse.class);
+                    List<DoctorScheduleResponse> doctorScheduleResponses = doctor.getSchedules().stream()
+                            .map(doctorSchedule -> modelMapper.map(doctorSchedule, DoctorScheduleResponse.class))
+                            .toList();
+                    doctorResponse.setDoctorScheduleResponse(doctorScheduleResponses);
                     doctorResponse.setUserResponse(userResponse);
                     return doctorResponse;
                 }).

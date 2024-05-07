@@ -5,6 +5,7 @@ import bam.Polyclinic.API.model.entity.Doctor;
 import bam.Polyclinic.API.model.response.*;
 import bam.Polyclinic.API.service.AppointmentService;
 import bam.Polyclinic.API.service.DoctorService;
+import bam.Polyclinic.API.service.UserService;
 import bam.Polyclinic.API.utils.enums.AppointmentStatus;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,12 @@ public class DoctorController {
 
     private final ModelMapper modelMapper;
 
+    private final UserService userService;
+
+    @GetMapping()
+    public ResponseEntity<IdResponse> getDoctorId(@RequestParam String email) {
+        return ResponseEntity.ok(new IdResponse(userService.getUserByLogin(email).getDoctor().getId()));
+    }
     @GetMapping("/appointments/{doctorId}")
     public ResponseEntity<AppointmentDoctorResponse> appointmentsPage(@PathVariable long doctorId,
                                            @RequestParam(required = false)

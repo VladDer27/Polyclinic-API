@@ -30,15 +30,15 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .formLogin().disable()
                 .securityMatcher("/**")
-                    .authorizeHttpRequests(registry -> registry.
-                            requestMatchers("/").permitAll()
-                            .requestMatchers("/auth/**").permitAll()
-                            .requestMatchers("/appointment/**").hasAnyRole("DOCTOR", "ADMIN", "PATIENT")
-                            .requestMatchers("/doctor/**").hasAnyRole("DOCTOR", "ADMIN")
-                            .requestMatchers("/admin/**").hasRole("ADMIN")
-                            .requestMatchers("/guest/**").hasRole("GUEST")
-                            .requestMatchers("/patient/**").hasAnyRole("PATIENT", "ADMIN")
-                            .anyRequest().authenticated());
+                .authorizeHttpRequests(registry -> registry
+                        .requestMatchers("/auth/**").permitAll()
+//                        .requestMatchers("/appointment/**").hasAnyRole("DOCTOR", "ADMIN", "PATIENT")
+//                        .requestMatchers("/doctor/**").hasAnyRole("DOCTOR", "ADMIN")
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/guest/**").hasRole("GUEST")
+//                        .requestMatchers("/patient").permitAll()
+//                        .requestMatchers("/patient/**").hasAnyRole("PATIENT", "ADMIN")
+                        .anyRequest().permitAll());
         return http.build();
     }
 
@@ -56,5 +56,3 @@ public class SecurityConfig {
                 .and().build();
     }
 }
-
-

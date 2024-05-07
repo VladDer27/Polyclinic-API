@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +32,13 @@ public class PatientController {
 
     private final AppointmentService appointmentService;
 
+    @GetMapping()
+    public ResponseEntity<IdResponse> getPatientId(@RequestParam String email) {
+        return ResponseEntity.ok(new IdResponse(userService.getUserByLogin(email).getPatient().getId()));
+    }
 
     @GetMapping("/edit/{patientId}")
-    public ResponseEntity<PatientResponse> editPatientPage(@PathVariable long patientId){
+    public ResponseEntity<PatientResponse> editPatientPage(@PathVariable long patientId) {
         Patient patient = patientService.getPatientById(patientId).get();
         UserResponse userResponse = modelMapper.map(patient.getUser(), UserResponse.class);
         PatientResponse response = modelMapper.map(patient, PatientResponse.class);
@@ -43,7 +48,7 @@ public class PatientController {
 
     @PutMapping("/edit/{patientId}")
     public ResponseEntity<PatientResponse> editPatient(@RequestBody PatientEditRequest request,
-                                                       @PathVariable long patientId){
+                                                       @PathVariable long patientId) {
         Patient existingPatient = patientService.getPatientById(patientId).get();
         existingPatient.setDateOfBirth(request.getDateOfBirth());
         existingPatient.setGender(request.getGender());
@@ -64,7 +69,7 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PatientResponse> getPatient(@PathVariable long id){
+    public ResponseEntity<PatientResponse> getPatient(@PathVariable long id) {
         Patient existingPatient = patientService.getPatientById(id).get();
 
         UserResponse userResponse = modelMapper.map(patientService.getPatientById(id).get().getUser(),
@@ -75,7 +80,7 @@ public class PatientController {
     }
 
     @GetMapping("/appointments/{patientId}")
-    public ResponseEntity<AppointmentResponseList> appointmentsPage(@PathVariable long patientId){
+    public ResponseEntity<AppointmentResponseList> appointmentsPage(@PathVariable long patientId) {
         Patient patient = patientService.getPatientById(patientId).get();
         List<Appointment> appointments = appointmentService.getAppointmentsByPatient(patient);
         appointmentService.sortAppointmentsList(appointments);

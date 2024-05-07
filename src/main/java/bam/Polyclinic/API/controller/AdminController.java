@@ -180,10 +180,14 @@ public class AdminController {
         Doctor doctor = doctorService.getDoctorById(doctorId).get();
         User user = doctor.getUser();
         UserResponse userResponse = modelMapper.map(user, UserResponse.class);
-        DoctorEditResponse response = new DoctorEditResponse(doctorId,
-                doctor.getSpeciality(), doctor.getAppointmentDuration(),
-                doctor.getRoom(), userResponse, DayOfWeek.values(), MedicalSpeciality.values());
-
+        List<DoctorScheduleResponse> doctorScheduleResponses = doctor.getSchedules().stream()
+                .map(doctorSchedule -> modelMapper.map(doctorSchedule, DoctorScheduleResponse.class))
+                .toList();
+        DoctorEditResponse response = modelMapper.map(doctor, DoctorEditResponse.class);
+        response.setUserResponse(userResponse);
+        response.setDoctorScheduleResponseList(doctorScheduleResponses);
+        response.setDayOfWeeks(DayOfWeek.values());
+        response.setMedicalSpecialities(MedicalSpeciality.values());
         return ResponseEntity.ok(response);
     }
 
