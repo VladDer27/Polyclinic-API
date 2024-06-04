@@ -5,7 +5,7 @@ FROM openjdk:18
 WORKDIR /app
 
 # Копирование исполняемого файла jar в рабочую директорию
-COPY target/*.jar app.jar
+COPY Polyclinic-API-0.0.1-SNAPSHOT.jar app.jar
 
 # Команда для запуска приложения
 CMD ["java", "-jar", "app.jar"]
