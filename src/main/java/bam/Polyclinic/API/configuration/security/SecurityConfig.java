@@ -39,12 +39,12 @@ public class SecurityConfig {
                 .securityMatcher("/**")
                 .authorizeHttpRequests(registry -> registry
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/appointment/**").hasAnyRole("DOCTOR", "ADMIN", "PATIENT")
-                        .requestMatchers("/doctor/**").hasAnyRole("DOCTOR", "ADMIN")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/guest/**").hasRole("GUEST")
-                        .requestMatchers("/patient").permitAll()
-                        .requestMatchers("/patient/**").hasAnyRole("PATIENT", "ADMIN")
+//                        .requestMatchers("/appointment/**").hasAnyRole("DOCTOR", "ADMIN", "PATIENT")
+//                        .requestMatchers("/doctor/**").hasAnyRole("DOCTOR", "ADMIN")
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .requestMatchers("/guest/**").hasRole("GUEST")
+//                        .requestMatchers("/patient").permitAll()
+//                        .requestMatchers("/patient/**").hasAnyRole("PATIENT", "ADMIN")
                         .anyRequest().permitAll());
         return http.build();
     }
